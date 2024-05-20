@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor:AppColor.primaryColor),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor:AppColor.primaryColor,
+            secondary: AppColor.secondaryColor,
+          ),
           useMaterial3: true,
           fontFamily: GoogleFonts.poppins().fontFamily,
           textTheme:GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme,),
