@@ -11,4 +11,10 @@ class AppString{
   static const String buttonLogin="Login";
   static const String buttonRegister="Register";
   static const String orLoginWith="Or Login with";
+  static const String headlineRegister="Welcome to OceanTalk";
+  static const String bodyRegister="Please create your account";
+  static const String fullNameField ='Full Name';
+  static const String dateOfBirthField ='Date of Birth';
+  static const String genderField ='Gender';
+  static const String passwordConfirmField ='Confirm Password';
 }

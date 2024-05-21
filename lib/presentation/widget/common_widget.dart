@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../constants/app_color.dart';
+import '../constants/app_string.dart';
 import '../constants/app_style.dart';
 
 RichText buildAppLogo(BuildContext context) {
@@ -29,6 +32,59 @@ ElevatedButton buildElevatedButtonFill(
           .textTheme
           .titleMedium!
           .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
+    ),
+  );
+}
+
+
+buildSocialButton(BuildContext context,String text, String sourceIcon, Function() onPressed) {
+  return InkWell(
+    onTap: onPressed,
+    child: Container(
+        padding: EdgeInsets.all(5.w),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: Border.all(color: Colors.black, width: 1.w),
+          borderRadius: BorderRadius.circular(5.w),
+        ),
+        child: Row(
+          children: [
+            Image.asset(sourceIcon,width: 20.w,height: 20.h,),
+            Gap(5.w),
+            Text(text,style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(fontWeight: FontWeight.w500,color: Colors.black),),
+          ],
+        )
+    ),
+  );
+}
+
+buildOrLoginWithIndicator(BuildContext context) {
+  return SizedBox(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Divider(
+            indent: 15.w,
+            endIndent: 5.w,
+          ),
+        ),
+        Gap(10.w),
+        Text(AppString.orLoginWith,style: Theme.of(context)
+            .textTheme
+            .bodySmall!
+            .copyWith(fontWeight: FontWeight.w500,color: Colors.black),),
+        Gap(10.w),
+        Expanded(
+          child: Divider(
+            endIndent: 15.w,
+            indent: 5.w,
+          ),
+        ),
+      ],
     ),
   );
 }
