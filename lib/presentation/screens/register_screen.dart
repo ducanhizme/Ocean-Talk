@@ -1,17 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../constants/app_color.dart';
 import '../constants/app_string.dart';
 import '../widget/authentication_field.dart';
 import '../widget/authentication_picker_field.dart';
 import '../widget/common_widget.dart';
-import '../widget/remember_me.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -68,8 +64,8 @@ class RegisterScreen extends StatelessWidget {
                           context, 'Google', 'assets/icon/google.png', () {}),
                       buildSocialButton(
                           context, 'Github', 'assets/icon/github.png', () {}),
-                      buildSocialButton(
-                          context, 'Facebook', 'assets/icon/facebook.png', () {}),
+                      buildSocialButton(context, 'Facebook',
+                          'assets/icon/facebook.png', () {}),
                     ],
                   ),
                   const AuthenticationField(
@@ -79,12 +75,20 @@ class RegisterScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: AuthenticationPickerField(icon: Ionicons.calendar_sharp,label: AppString.dateOfBirthField,onTap: (){},),
+                        child: AuthenticationPickerField(
+                          icon: Ionicons.calendar_sharp,
+                          label: AppString.dateOfBirthField,
+                          onTap: () {},
+                        ),
                       ),
                       Gap(5.w),
                       Expanded(
                         flex: 1,
-                        child: AuthenticationPickerField(icon: Ionicons.male_female_sharp,label: AppString.genderField,onTap: (){},),
+                        child: AuthenticationPickerField(
+                          icon: Ionicons.male_female_sharp,
+                          label: AppString.genderField,
+                          onTap: () {},
+                        ),
                       ),
                     ],
                   ),
@@ -92,13 +96,16 @@ class RegisterScreen extends StatelessWidget {
                       label: AppString.emailLabelField, obscureText: false),
                   const AuthenticationField(
                       label: AppString.passwordLabelField, obscureText: true),
-                  const AuthenticationField(label: AppString.passwordConfirmField,obscureText: true,),
+                  const AuthenticationField(
+                    label: AppString.passwordConfirmField,
+                    obscureText: true,
+                  ),
                   Gap(20.h),
                   SizedBox(
                     width: double.infinity,
                     height: 40.h,
-                    child: buildElevatedButtonFill(context, AppString.buttonLogin,
-                        () {}, AppColor.primaryColor),
+                    child: buildElevatedButtonFill(context,
+                        AppString.buttonLogin, () {}, AppColor.primaryColor),
                   ),
                   Gap(15.h),
                   SizedBox(

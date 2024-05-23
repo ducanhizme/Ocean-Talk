@@ -17,4 +17,11 @@ class AppString{
   static const String dateOfBirthField ='Date of Birth';
   static const String genderField ='Gender';
   static const String passwordConfirmField ='Confirm Password';
+  static const String bottomNavbarLabel1 ='Home';
+  static const String bottomNavbarLabel2 ='Add Friend';
+  static const String bottomNavbarLabel3 ='Setting';
+  static const String hintTextSearch ='Search Chat';
+  static const String tabName1 ='Chats';
+  static const String tabName2 ='Friends';
+  static const String tabName3 ='Group';
 }

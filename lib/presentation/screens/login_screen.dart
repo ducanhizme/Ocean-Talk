@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:ocean_talk/presentation/constants/app_string.dart';
+import 'package:ocean_talk/presentation/screens/home_screen.dart';
 import 'package:ocean_talk/presentation/screens/register_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -23,10 +24,8 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsets.all(5.w),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.black, width: 2.w)
-                ),
-                child: const Icon(Icons.arrow_back)
-            ),
+                    border: Border.all(color: Colors.black, width: 2.w)),
+                child: const Icon(Icons.arrow_back)),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -44,16 +43,17 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Gap(20.h),
                 Text(AppString.headlineLogin,
-                    style: Theme
-                        .of(context)
+                    style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
                         .copyWith(fontWeight: FontWeight.bold)),
-                Text(AppString.bodyLogin, style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(fontWeight: FontWeight.w500),),
+                Text(
+                  AppString.bodyLogin,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
                 Gap(15.h),
                 const AuthenticationField(
                     label: AppString.emailLabelField, obscureText: false),
@@ -67,12 +67,11 @@ class LoginScreen extends StatelessWidget {
                     const RememberMe(),
                     InkWell(
                       onTap: () {},
-                      child: Text(AppString.forgotPassword, style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(
-                          fontWeight: FontWeight.w400, color: Colors.black),),
+                      child: Text(
+                        AppString.forgotPassword,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w400, color: Colors.black),
+                      ),
                     ),
                   ],
                 ),
@@ -80,9 +79,15 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   height: 40.h,
-                  child: buildElevatedButtonFill(
-                      context, AppString.buttonLogin, () {},
-                      AppColor.primaryColor),
+                  child: buildElevatedButtonFill(context, AppString.buttonLogin,
+                      () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: HomeScreen()),
+                                (route) => false);
+                  }, AppColor.primaryColor),
                 ),
                 Gap(15.h),
                 SizedBox(
@@ -90,11 +95,12 @@ class LoginScreen extends StatelessWidget {
                   height: 40.h,
                   child: buildElevatedButtonFill(
                       context, AppString.buttonRegister, () {
-                        Navigator.push(context, PageTransition(
+                    Navigator.push(
+                        context,
+                        PageTransition(
                             type: PageTransitionType.rightToLeft,
                             child: const RegisterScreen()));
-                  },
-                      AppColor.secondaryColor),
+                  }, AppColor.secondaryColor),
                 ),
                 Gap(25.h),
                 buildOrLoginWithIndicator(context),
@@ -114,11 +120,6 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
-
-
-
-
