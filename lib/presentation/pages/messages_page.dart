@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ocean_talk/presentation/widget/message_tile.dart';
+import '../model/message_data.dart';
 
 import '../widget/custom_appbar.dart';
 
@@ -11,7 +11,8 @@ class MessagesPage extends StatefulWidget {
   _MessagesPageState createState() => _MessagesPageState();
 }
 
-class _MessagesPageState extends State<MessagesPage> with SingleTickerProviderStateMixin {
+class _MessagesPageState extends State<MessagesPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -35,14 +36,13 @@ class _MessagesPageState extends State<MessagesPage> with SingleTickerProviderSt
           controller: _tabController,
           children: [
             ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.vertical,
+              itemCount: listMessages.length,
               itemBuilder: (context, index) {
-                return const MessageTile();
+                return MessageTile(messageData: listMessages[index]);
               },
             ),
-            Center(child: Text('Friends tab')),
-            Center(child: Text('Group tab')),
+            const Center(child: Text('Friends tab')),
+            const Center(child: Text('Group tab')),
           ],
         ),
       ),

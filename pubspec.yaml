@@ -45,6 +45,7 @@ dependencies:
   ionicons: ^0.2.2
   rxdart: ^0.27.0
   faker: ^2.1.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

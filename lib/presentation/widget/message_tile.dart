@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_talk/presentation/constants/app_color.dart';
-import 'package:ocean_talk/presentation/constants/app_icon.dart';
+import '../model/message_data.dart';
 
 class MessageTile extends StatelessWidget {
-  //final MessageData messageData;
-  const MessageTile({Key? key}) : super(key: key);
+  final MessageData messageData;
+  const MessageTile({Key? key, required this.messageData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,43 +13,51 @@ class MessageTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: AppColor.primaryColor, width: 2)),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColor.primaryColor, width: 2),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                Image.asset(AppIcon.avatar),
+                Image.asset(messageData.profilePicture),
                 const SizedBox(width: 10),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Robert Fox",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.senderName),
+                      messageData.senderName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.senderName,
+                      ),
                     ),
                     Text(
-                      "Hey, let's play basketball",
-                      style: TextStyle(fontSize: 13, color: AppColor.messages),
+                      messageData.message,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: AppColor.messages,
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-            const Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "15:43",
-                  style: TextStyle(color: AppColor.messages, fontSize: 11),
+                  "${messageData.messageDate.hour}:${messageData.messageDate.minute.toString().padLeft(2, '0')}",
+                  style: const TextStyle(
+                    color: AppColor.messages,
+                    fontSize: 11,
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
