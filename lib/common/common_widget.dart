@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../constants/app_color.dart';
-import '../constants/app_string.dart';
-import '../constants/app_style.dart';
+import '../presentation/constants/app_color.dart';
+import '../presentation/constants/app_string.dart';
+import '../presentation/constants/app_style.dart';
+
 
 RichText buildAppLogo(BuildContext context) {
   return RichText(

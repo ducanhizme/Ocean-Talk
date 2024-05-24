@@ -43,6 +43,9 @@ dependencies:
   gap: ^3.0.1
   page_transition: "^2.1.0"
   ionicons: ^0.2.2
+  bloc: ^8.1.4
+  firebase_auth: ^4.19.6
+  flutter_bloc: ^8.1.5
 
 dev_dependencies:
   flutter_test:

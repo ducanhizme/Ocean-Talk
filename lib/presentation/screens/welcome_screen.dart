@@ -4,12 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:ocean_talk/presentation/constants/app_color.dart';
 import 'package:ocean_talk/presentation/constants/app_string.dart';
-import 'package:ocean_talk/presentation/constants/common.dart';
 import 'package:ocean_talk/presentation/screens/login_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../constants/app_style.dart';
-import '../widget/common_widget.dart';
+import '../../common/common_constants.dart';
+import '../../common/common_widget.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

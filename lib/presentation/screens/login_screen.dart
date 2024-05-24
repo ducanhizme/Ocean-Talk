@@ -5,10 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:ocean_talk/presentation/constants/app_string.dart';
 import 'package:ocean_talk/presentation/screens/register_screen.dart';
 import 'package:page_transition/page_transition.dart';
-
+import '../../common/common_widget.dart';
 import '../constants/app_color.dart';
 import '../widget/authentication_field.dart';
-import '../widget/common_widget.dart';
 import '../widget/remember_me.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -55,11 +54,11 @@ class LoginScreen extends StatelessWidget {
                     .bodyMedium!
                     .copyWith(fontWeight: FontWeight.w500),),
                 Gap(15.h),
-                const AuthenticationField(
-                    label: AppString.emailLabelField, obscureText: false),
-                Gap(10.h),
-                const AuthenticationField(
-                    label: AppString.passwordLabelField, obscureText: true),
+                // const AuthenticationField(
+                //     label: AppString.emailLabelField, obscureText: false),
+                // Gap(10.h),
+                // const AuthenticationField(
+                //     label: AppString.passwordLabelField, obscureText: true),
                 Gap(10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                       context, AppString.buttonRegister, () {
                         Navigator.push(context, PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: const RegisterScreen()));
+                            child:  RegisterScreen()));
                   },
                       AppColor.secondaryColor),
                 ),
