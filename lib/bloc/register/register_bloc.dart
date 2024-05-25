@@ -1,16 +1,14 @@
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:ocean_talk/bloc/register_event.dart';
-import 'package:ocean_talk/bloc/register_state.dart';
-
-import '../data/repository/authentication_repository.dart';
-
-
+import 'package:ocean_talk/bloc/register/register_event.dart';
+import 'package:ocean_talk/bloc/register/register_state.dart';
+import '../../data/models/app_user.dart';
+import '../../data/repository/authentication_repository.dart';
+import '../../data/repository/user_repository.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final AuthenticationRepository _authenticationRepository;
-  RegisterBloc(this._authenticationRepository) : super(const RegisterState()){
+  final AuthenticationRepository authenticationRepository;
+  final UserRepository userRepository;
+  RegisterBloc({required this.userRepository ,required this.authenticationRepository}) : super(const RegisterState()){
     on<RegisterReset>((event, emit) {
       emit(state.copyWith(status: RegisterStatus.initial));
     });
@@ -37,8 +35,18 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     });
     on<RegisterSubmitted>((event, emit) async {
       emit(state.copyWith(status: RegisterStatus.submitting));
-      bool signUpSuccess = await _authenticationRepository.signUp(email: state.email, password: state.password);
+      bool signUpSuccess = await authenticationRepository.signUp(email: state.email, password: state.password);
       if (signUpSuccess) {
+        final firebaseUser = authenticationRepository.getCurrentUser();
+        final appUser = AppUser(
+          uid: firebaseUser!.uid,
+          email: firebaseUser.email!,
+          fullName: state.fullName,
+          dateOfBirth: state.dateOfBirth,
+          gender: state.gender,
+          displayImage: "",
+        );
+        userRepository.addUser(appUser);
         emit(state.copyWith(status: RegisterStatus.success));
       } else {
         emit(state.copyWith(status: RegisterStatus.failure));

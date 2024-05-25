@@ -1,6 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:ocean_talk/bloc/register_state.dart';
 
 abstract class RegisterEvent {
   const RegisterEvent();

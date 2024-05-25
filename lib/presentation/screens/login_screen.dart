@@ -55,6 +55,7 @@ class LoginScreen extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w500),),
                 Gap(15.h),
                 // const AuthenticationField(
+                //
                 //     label: AppString.emailLabelField, obscureText: false),
                 // Gap(10.h),
                 // const AuthenticationField(

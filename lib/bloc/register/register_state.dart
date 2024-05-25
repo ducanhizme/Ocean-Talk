@@ -4,7 +4,7 @@ enum RegisterStatus { initial, submitting, success, failure }
 
 class RegisterState {
   final AutovalidateMode autovalidateMode;
-  final String username;
+  final String fullName;
 
   final String dateOfBirth;
   final String gender;
@@ -16,7 +16,7 @@ class RegisterState {
   const RegisterState(
       {this.status = RegisterStatus.initial,
       this.autovalidateMode = AutovalidateMode.disabled,
-      this.username = "",
+      this.fullName = "",
       this.dateOfBirth = "",
       this.gender = "",
       this.email = "",
@@ -36,7 +36,7 @@ class RegisterState {
     return RegisterState(
       status: status ?? this.status,
       autovalidateMode: autovalidateMode ?? this.autovalidateMode,
-      username: username ?? this.username,
+      fullName: username ?? this.fullName,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       gender: gender ?? this.gender,
       email: email ?? this.email,

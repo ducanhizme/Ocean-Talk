@@ -15,4 +15,9 @@ class AuthenticationRepository {
       return false;
     }
   }
+
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
+  }
+
 }
