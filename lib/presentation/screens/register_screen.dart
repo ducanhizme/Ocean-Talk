@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ocean_talk/bloc/register_event.dart';
 import 'package:ocean_talk/common/validate/validator.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../bloc/register_bloc.dart';
 import '../../bloc/register_state.dart';
