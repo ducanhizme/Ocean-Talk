@@ -8,8 +8,10 @@ class AuthenticationField extends StatelessWidget {
   final String label;
   final bool obscureText;
   final IconData? icons;
+  final Function(String) onChanged;
+  final String? Function(String?)? validator;
   const AuthenticationField({
-    super.key, required this.label, required this.obscureText, this.icons,
+    super.key, required this.label, required this.obscureText, this.icons, required this.onChanged, required this.validator,
   });
 
   @override
@@ -33,6 +35,8 @@ class AuthenticationField extends StatelessWidget {
                   .titleSmall!
                   .copyWith(fontWeight: FontWeight.w500,color: Colors.black),
               obscureText: obscureText,
+              onChanged: onChanged,
+              validator: validator,
               decoration: InputDecoration(
                 icon: icons != null ? Icon(icons) : null,
                 isDense: true,

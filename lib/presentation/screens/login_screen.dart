@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:ocean_talk/presentation/constants/app_string.dart';
 import 'package:ocean_talk/presentation/screens/home_screen.dart';
 import 'package:ocean_talk/presentation/screens/register_screen.dart';
 import 'package:page_transition/page_transition.dart';
-
+import '../../common/common_widget.dart';
 import '../constants/app_color.dart';
-import '../widget/authentication_field.dart';
-import '../widget/common_widget.dart';
 import '../widget/remember_me.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -55,11 +52,11 @@ class LoginScreen extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w500),
                 ),
                 Gap(15.h),
-                const AuthenticationField(
-                    label: AppString.emailLabelField, obscureText: false),
-                Gap(10.h),
-                const AuthenticationField(
-                    label: AppString.passwordLabelField, obscureText: true),
+                // const AuthenticationField(
+                //     label: AppString.emailLabelField, obscureText: false),
+                // Gap(10.h),
+                // const AuthenticationField(
+                //     label: AppString.passwordLabelField, obscureText: true),
                 Gap(10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,12 +78,12 @@ class LoginScreen extends StatelessWidget {
                   height: 40.h,
                   child: buildElevatedButtonFill(context, AppString.buttonLogin,
                       () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: HomeScreen()),
-                                (route) => false);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const HomeScreen()),
+                        (route) => false);
                   }, AppColor.primaryColor),
                 ),
                 Gap(15.h),
@@ -99,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: const RegisterScreen()));
+                            child: RegisterScreen()));
                   }, AppColor.secondaryColor),
                 ),
                 Gap(25.h),
