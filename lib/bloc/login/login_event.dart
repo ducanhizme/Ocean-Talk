@@ -10,13 +10,11 @@ class LoginReset extends LoginEvent {
 
 class LoginEmailChanged extends LoginEvent {
   final String email;
-
   const LoginEmailChanged(this.email);
 }
 
 class LoginPasswordChanged extends LoginEvent {
   final String password;
-
   const LoginPasswordChanged(this.password);
 }
 

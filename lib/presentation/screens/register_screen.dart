@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ocean_talk/common/common_function.dart';
 import 'package:ocean_talk/common/validate/validator.dart';
+import 'package:ocean_talk/presentation/widget/social_authentication.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../bloc/register/register_bloc.dart';
 import '../../bloc/register/register_event.dart';
@@ -13,8 +14,8 @@ import '../../bloc/register/register_state.dart';
 import '../../common/common_widget.dart';
 import '../constants/app_color.dart';
 import '../constants/app_string.dart';
-import '../widget/authentication_field.dart';
-import '../widget/authentication_picker_field.dart';
+import '../widget/app_field.dart';
+import '../widget/app_date_field.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget with Validator {
@@ -59,7 +60,7 @@ class RegisterScreen extends StatelessWidget with Validator {
                         child: const LoginScreen()));
               });
             } else if (state.status == RegisterStatus.failure) {
-              context.read<RegisterBloc>().add(const RegisterReset());
+              context.read<RegisterBloc>().add( const RegisterReset());
               showToast(
                 'Registration failed! Please try again',
                 context: context,
@@ -103,18 +104,7 @@ class RegisterScreen extends StatelessWidget with Validator {
                             .copyWith(fontWeight: FontWeight.w500),
                       ),
                       Gap(10.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          buildSocialButton(context, 'Google',
-                              'assets/icon/google.png', () {}),
-                          buildSocialButton(context, 'Github',
-                              'assets/icon/github.png', () {}),
-                          buildSocialButton(context, 'Facebook',
-                              'assets/icon/facebook.png', () {}),
-                        ],
-                      ),
+                      const SocialAuthentication(),
                       Form(
                           key: _formKey,
                           autovalidateMode: state.autovalidateMode,
@@ -133,7 +123,7 @@ class RegisterScreen extends StatelessWidget with Validator {
                                 children: [
                                   Expanded(
                                     flex: 1,
-                                    child: AppDatePickerField(
+                                    child: AppDateField(
                                       onChanged: (value) =>
                                           context
                                               .read<RegisterBloc>()
@@ -146,7 +136,7 @@ class RegisterScreen extends StatelessWidget with Validator {
                                   Gap(5.w),
                                   Expanded(
                                     flex: 1,
-                                    child: AppDatePickerField(
+                                    child: AppDateField(
                                       icon: Ionicons.male_female_sharp,
                                       label: AppString.genderField, onChanged: ( value) {  },
                                     ),

@@ -10,8 +10,9 @@ class AppField extends StatelessWidget {
   final IconData? icons;
   final Function(String) onChanged;
   final String? Function(String?)? validator;
+  final String? errorText;
   const AppField({
-    super.key, required this.label, required this.obscureText, this.icons, required this.onChanged, required this.validator,
+    super.key, required this.label, required this.obscureText, this.icons, required this.onChanged,  this.validator, this.errorText,
   });
 
   @override
@@ -45,6 +46,7 @@ class AppField extends StatelessWidget {
                 focusedBorder: AppStyle.buildOutlineInputBorder(),
                 disabledBorder: AppStyle.buildOutlineInputBorder(),
                 enabledBorder: AppStyle.buildOutlineInputBorder(),
+                errorText: errorText,
               ),
             ),
           ),

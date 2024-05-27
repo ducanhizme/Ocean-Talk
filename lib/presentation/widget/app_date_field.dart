@@ -23,13 +23,13 @@ class DateInputFormatter extends TextInputFormatter {
   }
 }
 
-class AppDatePickerField extends StatelessWidget {
+class AppDateField extends StatelessWidget {
   final IconData icon;
   final String label;
   final Function(String) onChanged;
   final String? Function(String?)? validator;
 
-  const AppDatePickerField(
+  const AppDateField(
       {super.key,
       required this.icon,
       required this.label, required this.onChanged, this.validator});
