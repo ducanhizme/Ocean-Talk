@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:ocean_talk/bloc/social_login/social_login_bloc.dart';
 import 'package:ocean_talk/data/repository/user_repository.dart';
 import 'package:ocean_talk/presentation/screens/home_screen.dart';
@@ -23,7 +22,6 @@ class SocialAuthentication extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen(),));
           }
           else {
-            print("failed to login");
           }
         },
         builder: (context, state) {

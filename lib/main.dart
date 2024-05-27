@@ -7,13 +7,9 @@ import 'package:ocean_talk/bloc/register/register_bloc.dart';
 import 'package:ocean_talk/data/repository/authentication_repository.dart';
 import 'package:ocean_talk/data/repository/user_repository.dart';
 import 'package:ocean_talk/presentation/constants/app_color.dart';
-import 'package:ocean_talk/presentation/screens/complete_social_login.dart';
 import 'package:ocean_talk/presentation/screens/home_screen.dart';
-import 'package:ocean_talk/presentation/screens/login_screen.dart';
-import 'package:ocean_talk/presentation/screens/register_screen.dart';
 import 'package:ocean_talk/presentation/screens/welcome_screen.dart';
 import 'package:ocean_talk/presentation/widget/toast_global_customize.dart';
-import 'bloc/authentication/authentication_bloc.dart';
 import 'bloc/login/login_bloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -40,16 +36,6 @@ class MyApp extends StatelessWidget {
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) {
-                final authBloc = AuthenticationBloc(
-                  authenticationRepository:
-                      RepositoryProvider.of<AuthenticationRepository>(context),
-                );
-                authBloc.add(AuthenticationStarted());
-                return authBloc;
-              },
-            ),
             BlocProvider(
               create: (context) => RegisterBloc(
                 authenticationRepository:

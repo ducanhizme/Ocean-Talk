@@ -1,4 +1,4 @@
-import 'dart:async';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,7 +48,7 @@ class SocialLoginBloc extends Bloc<SocialLoginEvent, SocialLoginState> {
           status: SocialLoginStatus.success,
           message:
               'Logged in with ${event is SocialLoginGoogle ? 'Google' : 'Github'}'));
-    } on Exception catch (e) {
+    } on Exception {
       emit(state.copyWith(
           status: SocialLoginStatus.failure,
           message:

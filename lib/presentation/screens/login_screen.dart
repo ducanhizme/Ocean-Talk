@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -117,21 +117,18 @@ class LoginScreen extends StatelessWidget {
                         )
                     ),
                     Gap(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const RememberMe(),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(AppString.forgotPassword, style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black),),
-                        ),
-                      ],
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Text(AppString.forgotPassword, style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black),),
+                      ),
                     ),
                     Gap(20.h),
                     SizedBox(
