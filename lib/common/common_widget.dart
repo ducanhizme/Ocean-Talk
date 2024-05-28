@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:ionicons/ionicons.dart';
 
 import '../presentation/constants/app_color.dart';
 import '../presentation/constants/app_string.dart';
@@ -86,6 +87,22 @@ buildOrLoginWithIndicator(BuildContext context) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+InkWell buildIconButton(Function() onPressed, IconData icon) {
+  return InkWell(
+    onTap: onPressed,
+    child: Container(
+        decoration: BoxDecoration(
+          color:AppColor.bgIconButton,
+          borderRadius: BorderRadius.circular(10.w),
+        ),
+        child: Padding(
+          padding:  EdgeInsets.all(5.w),
+          child: Icon(icon),
+        )
     ),
   );
 }

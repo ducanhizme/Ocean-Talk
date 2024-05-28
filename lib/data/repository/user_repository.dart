@@ -10,6 +10,16 @@ class UserRepository{
         await _userProvider.addUser(user);
     }
 
+    Future<List<AppUser>>getUsers() async {
+       return await _userProvider.getUsers();
+    }
+
+    Future<List<AppUser>>searchUsers(String query) async {
+        return await _userProvider.searchUsers(query);
+    }
+
+
+
     Future<DocumentSnapshot<Map<String, dynamic>>> getUserByID(String userID) async {
         return await _userProvider.getUserByID(userID);
     }

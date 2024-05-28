@@ -13,4 +13,24 @@ class UserProvider {
   Future<void> addUser(AppUser user) async {
       await _firebaseFirestore.collection('users').doc(user.uid).set(user.toFirestore());
   }
+
+  Future<List<AppUser>> getUsers() async {
+    return await _firebaseFirestore.collection('users').get().then((querySnapshot) {
+      List<AppUser> users = [];
+      for (var element in querySnapshot.docs) {
+        users.add(AppUser.fromFirestore(element));
+      }
+      return users;
+    });
+  }
+
+  Future<List<AppUser>> searchUsers(String query) async {
+    return await _firebaseFirestore.collection('users').where('fullName', isGreaterThanOrEqualTo: query).get().then((querySnapshot) {
+      List<AppUser> users = [];
+      for (var element in querySnapshot.docs) {
+        users.add(AppUser.fromFirestore(element));
+      }
+      return users;
+    });
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ocean_talk/bloc/social_login/social_login_bloc.dart';
 import 'package:ocean_talk/data/repository/user_repository.dart';
+import 'package:ocean_talk/presentation/screens/app_screen.dart';
 import 'package:ocean_talk/presentation/screens/home_screen.dart';
 
 import '../../common/common_widget.dart';
@@ -19,7 +20,7 @@ class SocialAuthentication extends StatelessWidget {
       child: BlocConsumer<SocialLoginBloc, SocialLoginState>(
         listener: (context, state) {
           if (state.status == SocialLoginStatus.success) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen(),));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AppScreen(),));
           }
           else {
           }
