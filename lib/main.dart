@@ -2,11 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ocean_talk/bloc/register_bloc.dart';
+import 'package:ocean_talk/bloc/register/register_bloc.dart';
 import 'package:ocean_talk/data/repository/authentication_repository.dart';
+import 'package:ocean_talk/data/repository/user_repository.dart';
 import 'package:ocean_talk/presentation/constants/app_color.dart';
 import 'package:ocean_talk/presentation/screens/login_screen.dart';
 import 'package:ocean_talk/presentation/screens/welcome_screen.dart';
+import 'package:ocean_talk/presentation/widget/toast_global_customize.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
@@ -23,35 +25,43 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
+        providers:[
+          RepositoryProvider<AuthenticationRepository>(
+            create: (context) => AuthenticationRepository(),
+          ),
+          RepositoryProvider<UserRepository>(create: (context) => UserRepository(),
+          )
+        ] , child: MultiBlocProvider(
       providers: [
-        RepositoryProvider(
-          create: (context) => AuthenticationRepository(),
-        ),
         BlocProvider(
           create: (context) => RegisterBloc(
-              RepositoryProvider.of<AuthenticationRepository>(context),
+            authenticationRepository: RepositoryProvider.of<AuthenticationRepository>(context),
+            userRepository: RepositoryProvider.of<UserRepository>(context),
           ),
         ),
       ],
       child: ScreenUtilInit(
-        builder: (context, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: AppColor.primaryColor,
-              secondary: AppColor.secondaryColor,
+        builder: (context, child) => ToastGlobalCustomize(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: AppColor.primaryColor,
+                secondary: AppColor.secondaryColor,
+              ),
+              useMaterial3: true,
+              fontFamily: GoogleFonts.poppins().fontFamily,
+              textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme,),
             ),
-            useMaterial3: true,
-            fontFamily: GoogleFonts.poppins().fontFamily,
-            textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme,),
+            routes: {
+              "/": (context) => const WelcomeScreen(), // This is the default route
+              "/login": (context) => const LoginScreen(),
+            },
           ),
-          routes: {
-            "/": (context) => const WelcomeScreen(), // This is the default route
-            "/login": (context) => const LoginScreen(),
-          },
         ),
       ),
+    )
     );
   }
 }

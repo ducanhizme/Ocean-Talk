@@ -43,13 +43,12 @@ dependencies:
   gap: ^3.0.1
   page_transition: "^2.1.0"
   ionicons: ^0.2.2
-  rxdart: ^0.27.0
-  faker: ^2.1.0
-  intl: ^0.17.0
   bloc: ^8.1.4
   firebase_auth: ^4.19.6
   flutter_bloc: ^8.1.5
-
+  flutter_styled_toast: ^2.2.1
+  cloud_firestore: ^4.17.4
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

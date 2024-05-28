@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ocean_talk/common/common_function.dart';
 
 import '../constants/app_style.dart';
 
-class AuthenticationPickerField extends StatelessWidget {
-  final IconData icon;
-  final Function() onTap;
-  final String label;
+class DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.length == 3 || newValue.text.length == 6) {
+      if (newValue.text.substring(newValue.text.length - 1) != '/') {
+        return TextEditingValue(
+          text: '${newValue.text.substring(0, newValue.text.length - 1)}/${newValue.text.substring(newValue.text.length - 1)}',
+          selection: TextSelection.collapsed(offset: newValue.selection.end + 1),
+        );
+      }
+    }
+    return newValue;
+  }
+}
 
-  const AuthenticationPickerField(
+class AppDatePickerField extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Function(String) onChanged;
+  final String? Function(String?)? validator;
+
+  const AppDatePickerField(
       {super.key,
       required this.icon,
-      required this.onTap,
-      required this.label});
+      required this.label, required this.onChanged, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +57,13 @@ class AuthenticationPickerField extends StatelessWidget {
               flex: 1,
               child: Row(
                 children: [
-                  Expanded(child: InkWell(onTap: onTap, child: Icon(icon, size: 20.w))),
+                  Expanded(child: Icon(icon, size: 20.w)),
                   Expanded(
                     flex: 3,
                     child: TextFormField(
-                      readOnly: true,
+                      validator: validator,
+                      onChanged: onChanged,
+                      inputFormatters: [DateInputFormatter()],
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontWeight: FontWeight.w500, color: Colors.black),
                       decoration: InputDecoration(

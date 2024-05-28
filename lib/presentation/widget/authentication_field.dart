@@ -4,13 +4,13 @@ import 'package:gap/gap.dart';
 
 import '../constants/app_style.dart';
 
-class AuthenticationField extends StatelessWidget {
+class AppField extends StatelessWidget {
   final String label;
   final bool obscureText;
   final IconData? icons;
   final Function(String) onChanged;
   final String? Function(String?)? validator;
-  const AuthenticationField({
+  const AppField({
     super.key, required this.label, required this.obscureText, this.icons, required this.onChanged, required this.validator,
   });
 

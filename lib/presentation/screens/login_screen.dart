@@ -53,6 +53,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Gap(15.h),
                 // const AuthenticationField(
+                //
                 //     label: AppString.emailLabelField, obscureText: false),
                 // Gap(10.h),
                 // const AuthenticationField(
