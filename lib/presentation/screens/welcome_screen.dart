@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                     scaleFactor: 0.1,
                     listImages: listImagesWelcome,
                     height: ScreenUtil().screenHeight * 0.5,
-                    borderRadius: 30.0,
+                    borderRadius: 30.w,
                     cachedNetworkImage: true,
                     verticalAlignment: Alignment.topCenter,
                   ),

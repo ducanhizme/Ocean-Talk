@@ -12,19 +12,16 @@ class RegisterReset extends RegisterEvent {
 
 class RegisterAutovalidateModeChanged extends RegisterEvent {
   final AutovalidateMode autovalidate;
-
   const RegisterAutovalidateModeChanged(this.autovalidate);
 }
 
 class RegisterFullNameChanged extends RegisterEvent {
   final String fullName;
-
   const RegisterFullNameChanged(this.fullName);
 }
 
 class RegisterDateOfBirthChanged extends RegisterEvent {
   final String dateOfBirth;
-
   const RegisterDateOfBirthChanged(this.dateOfBirth);
 }
 

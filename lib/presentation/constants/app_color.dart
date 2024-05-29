@@ -7,4 +7,5 @@ class AppColor{
   static const textFieldColor = Color(0xFFF1F1F1);
   static const senderName = Color(0xFF181818);
   static const messages = Color(0xFF5C5C5C);
+  static const white = Color(0xFFFFFFFF);
 }

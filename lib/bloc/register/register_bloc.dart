@@ -35,7 +35,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     });
     on<RegisterSubmitted>((event, emit) async {
       emit(state.copyWith(status: RegisterStatus.submitting));
-      bool signUpSuccess = await authenticationRepository.signUp(email: state.email, password: state.password);
+      bool signUpSuccess = await authenticationRepository.register(email: state.email, password: state.password);
       if (signUpSuccess) {
         final firebaseUser = authenticationRepository.getCurrentUser();
         final appUser = AppUser(

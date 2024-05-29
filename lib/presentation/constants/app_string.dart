@@ -24,4 +24,5 @@ class AppString{
   static const String tabName1 ='Chats';
   static const String tabName2 ='Friends';
   static const String tabName3 ='Group';
+  static const String hintTextChatScreen ='Aa';
 }

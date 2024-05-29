@@ -36,7 +36,7 @@ class RegisterState {
     return RegisterState(
       status: status ?? this.status,
       autovalidateMode: autovalidateMode ?? this.autovalidateMode,
-      fullName: username ?? this.fullName,
+      fullName: username ?? fullName,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       gender: gender ?? this.gender,
       email: email ?? this.email,

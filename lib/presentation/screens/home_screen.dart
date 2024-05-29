@@ -1,5 +1,28 @@
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+//
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return  Scaffold(
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () async {
+//             await FirebaseAuth.instance.signOut();
+//           },
+//           child: const Text('Back'),
+//         ),
+//
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:ocean_talk/presentation/constants/app_color.dart';
+import 'package:ocean_talk/presentation/widget/custom_icon_tabbar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ocean_talk/presentation/constants/app_string.dart';
 import 'package:ocean_talk/presentation/pages/friend_page.dart';
@@ -49,22 +72,26 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex: selectedIndex,
             showSelectedLabels: true,
             showUnselectedLabels: false,
+            selectedItemColor: AppColor.secondaryColor,
             onTap: _onItemTapped,
             items: [
               BottomNavigationBarItem(
-                icon: Image.asset(AppIcon.homeIcon),
+                icon: CustomIconTabbar(
+                  assetPath: AppIcon.homeIcon,
+                  isSelected: selectedIndex == 0,
+                ),
                 label: AppString.bottomNavbarLabel1,
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppIcon.personAddIcon,
-                ),
+                icon: CustomIconTabbar(
+                    assetPath: AppIcon.personAddIcon,
+                    isSelected: selectedIndex == 1),
                 label: AppString.bottomNavbarLabel2,
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  AppIcon.settingIcon,
-                ),
+                icon: CustomIconTabbar(
+                    assetPath: AppIcon.settingIcon,
+                    isSelected: selectedIndex == 2),
                 label: AppString.bottomNavbarLabel3,
               ),
             ],

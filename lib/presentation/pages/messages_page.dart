@@ -31,21 +31,26 @@ class _MessagesPageState extends State<MessagesPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(tabController: _tabController),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            ListView.builder(
-              itemCount: listMessages.length,
-              itemBuilder: (context, index) {
-                return MessageTile(messageData: listMessages[index]);
-              },
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(70),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: CustomAppBar(tabController: _tabController),
             ),
-            const Center(child: Text('Friends tab')),
-            const Center(child: Text('Group tab')),
-          ],
-        ),
-      ),
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: [
+              ListView.builder(
+                itemCount: listMessages.length,
+                itemBuilder: (context, index) {
+                  return MessageTile(messageData: listMessages[index]);
+                },
+              ),
+              const Center(child: Text('Friends tab')),
+              const Center(child: Text('Group tab')),
+            ],
+          )),
     );
   }
 }
