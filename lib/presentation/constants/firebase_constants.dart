@@ -6,4 +6,5 @@ class UserCollectionConstant{
   static const String dateOfBirth="dateOfBirth";
   static const String gender="gender";
   static const String email="email";
+  static const String friends="friends";
 }

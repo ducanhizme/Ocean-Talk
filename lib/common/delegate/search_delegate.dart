@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:ocean_talk/presentation/widget/friend_card.dart';
+import 'package:ocean_talk/presentation/widget/user_card.dart';
 
 import '../../bloc/search/search_bloc.dart';
 import '../../data/models/app_user.dart';
@@ -11,7 +11,7 @@ class CustomUserSearchDelegate extends SearchDelegate<AppUser>{
   final SearchBloc searchBloc;
 
   @override
-  String get searchFieldLabel => 'Search name or email';
+  String get searchFieldLabel => 'Search name of user';
   @override
   TextStyle get searchFieldStyle =>const  TextStyle(color: Colors.black, fontSize: 14.0);
 
@@ -54,7 +54,7 @@ class CustomUserSearchDelegate extends SearchDelegate<AppUser>{
               itemCount: state.listUser.length,
               itemBuilder: (context, index) {
                 final user = state.listUser[index];
-                return FriendCard(friend: user);
+                return UserCard(user: user);
               },
             ),
           );
@@ -78,7 +78,7 @@ class CustomUserSearchDelegate extends SearchDelegate<AppUser>{
             itemCount: state.listUser.length,
             itemBuilder: (context, index) {
               final user = state.listUser[index];
-              return FriendCard(friend: user);
+              return UserCard(user: user);
             },
           );
         } else {

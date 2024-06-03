@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ocean_talk/bloc/app/app_bloc.dart';
+import 'package:ocean_talk/bloc/profile_user_screen/profile_user_bloc.dart';
 import 'package:ocean_talk/bloc/register/register_bloc.dart';
 import 'package:ocean_talk/data/repository/authentication_repository.dart';
 import 'package:ocean_talk/data/repository/user_repository.dart';
@@ -63,7 +64,10 @@ class MyApp extends StatelessWidget {
                 create: (context) => SearchBloc(
                   userAuthenticationRepository: RepositoryProvider.of<UserRepository>(context),
                 )
-            )
+            ),
+            BlocProvider(create:(context) => ProfileUserBloc(
+              RepositoryProvider.of<UserRepository>(context),
+            )),
           ],
           child: ScreenUtilInit(
             builder: (context, child) => ToastGlobalCustomize(

@@ -105,4 +105,16 @@ InkWell buildIconButton(Function() onPressed, IconData icon) {
         )
     ),
   );
+
+}
+BoxDecoration buildAppLinear() {
+  return const BoxDecoration(
+      color: Colors.blue,
+      gradient:  LinearGradient(
+        colors: [Color(0xff771f98), Color(0xffd9ad4c)],
+        stops: [0.25, 0.75],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      )
+  );
 }

@@ -1,104 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../../data/models/app_user.dart';
+import '../screens/profile_user_screen.dart';
 
 class FriendCard extends StatelessWidget {
-  const FriendCard({
-    super.key,
-    required this.friend,
-  });
-
   final AppUser friend;
+  const FriendCard({
+    super.key, required this.friend,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.only(bottom :10.w),
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
+    return InkWell(
+      onTap: () => Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ProfileUserScreen(user: friend)),),
+      child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(10.w),
+            borderRadius: BorderRadius.circular(8.w),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+                blurRadius: 1,
+                offset: const Offset(
+                    0, 1), // changes position of shadow
               ),
             ],
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          child: SizedBox(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                        width: 50.w,
-                        child: CircleAvatar(
-                          backgroundImage: friend
-                              .displayImage
-                              .isEmpty
-                              ? Image.asset('assets/img/default_avatar.jpg')
-                              .image
-                              : Image.network(friend.displayImage)
-                              .image,
-                        ),
-                      ),
-                      Gap(10.w),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              friend.fullName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              overflow: TextOverflow.ellipsis,
-                              friend.email,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                SizedBox(
+                  height: 100.h,
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8.w),
+                        topRight: Radius.circular(8.w)),
+                    child: friend
+                        .displayImage.isEmpty
+                        ? Image.asset(
+                        'assets/img/default_avatar.jpg',fit: BoxFit.fill
+                    )
+                        : Image.network(
+                        friend
+                            .displayImage,
+                        fit: BoxFit.fill),
                   ),
                 ),
-                InkWell(
-                    onTap: () {
-                    },
-                    child: Icon(Ionicons.chatbox_ellipses_outline,size: 20.w,)
-                ),
-                Gap(10.w),
-                InkWell(
-                    onTap: () {
-                    },
-                    child: Icon(Ionicons.ellipsis_horizontal_outline,size: 20.w,)
-                ),
+                Gap(5.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 8.w),
+                  child: Text(
+                    friend.fullName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(
+                        fontWeight: FontWeight.w600),
+                  ),
+                )
               ],
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }

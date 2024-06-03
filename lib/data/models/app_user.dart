@@ -8,14 +8,17 @@ class AppUser {
   final String dateOfBirth;
   final String gender;
   final String email;
+  final List<AppUser> friends;
 
-  AppUser(
-      {this.uid = "",
-      this.displayImage = "",
-      this.fullName = "",
-      this.dateOfBirth = "",
-      this.gender = "",
-      this.email = ""});
+  AppUser({
+    this.uid = "",
+    this.displayImage = "",
+    this.fullName = "",
+    this.dateOfBirth = "",
+    this.gender = "",
+    this.email = "",
+    this.friends = const [],
+  });
 
   copyWith({
     String? uid,
@@ -24,6 +27,7 @@ class AppUser {
     String? dateOfBirth,
     String? gender,
     String? email,
+    List<AppUser>? friends,
   }) {
     return AppUser(
       uid: uid ?? this.uid,
@@ -32,23 +36,29 @@ class AppUser {
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       gender: gender ?? this.gender,
       email: email ?? this.email,
+      friends: friends ?? this.friends,
     );
   }
 
-  Map<String,dynamic> toFirestore() {
+  Map<String, dynamic> toFirestore() {
     return {
       if (uid.isNotEmpty) UserCollectionConstant.id: uid,
-      if (displayImage.isNotEmpty) UserCollectionConstant.displayImage: displayImage,
+      if (displayImage.isNotEmpty)
+        UserCollectionConstant.displayImage: displayImage,
       if (fullName.isNotEmpty) UserCollectionConstant.fullName: fullName,
-      if (dateOfBirth.isNotEmpty) UserCollectionConstant.dateOfBirth: dateOfBirth,
+      if (dateOfBirth.isNotEmpty)
+        UserCollectionConstant.dateOfBirth: dateOfBirth,
       if (gender.isNotEmpty) UserCollectionConstant.gender: gender,
       if (email.isNotEmpty) UserCollectionConstant.email: email,
+      if (friends.isNotEmpty)
+        UserCollectionConstant.friends:
+            friends.map((e) => e.toFirestore()).toList(),
     };
   }
 
   factory AppUser.fromFirestore(
-      DocumentSnapshot<Map<String,dynamic>> snapshot,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+  ) {
     final data = snapshot.data();
     return AppUser(
       uid: data?[UserCollectionConstant.id] ?? "Unknown id",
@@ -57,6 +67,11 @@ class AppUser {
       dateOfBirth: data?[UserCollectionConstant.dateOfBirth] ?? "",
       gender: data?[UserCollectionConstant.gender] ?? "",
       email: data?[UserCollectionConstant.email] ?? "",
+      friends: (data?[UserCollectionConstant.friends] as List?)
+              ?.map((e) => AppUser.fromFirestore(
+                  e as DocumentSnapshot<Map<String, dynamic>>))
+              .toList() ??
+          [],
     );
   }
 }
