@@ -7,8 +7,10 @@ enum UserType{
 enum RequestStatus {
   none,
   pending,
-  accepted,
+  receive,
   rejected,
+  loading,
+  done,
 }
 
 enum ProfileUserStatus {

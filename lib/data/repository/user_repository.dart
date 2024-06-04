@@ -34,8 +34,12 @@ class UserRepository{
         await _userProvider.removeRequestFriend(currentUser, userStranger);
     }
 
-    Future<bool> checkRequestFriend(AppUser currentUser, AppUser userStranger) async {
-        return await _userProvider.checkRequestFriend(currentUser, userStranger);
+    Stream<DocumentSnapshot<Map<String, dynamic>>> checkRequestFriend(AppUser currentUser, AppUser userStranger)  {
+        return _userProvider.checkRequestFriend(currentUser, userStranger);
+    }
+
+    Future<void> acceptRequestFriend(AppUser currentUser, AppUser userStranger) async {
+        await _userProvider.acceptFriend(currentUser, userStranger);
     }
 
 }

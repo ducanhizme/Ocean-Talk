@@ -63,14 +63,20 @@ class UserProvider {
 
   Future<void> addRequestFriend(
       AppUser currentUser, AppUser userStranger) async {
-    final FriendRequest request = FriendRequest(
-        sender: currentUser, receiver: userStranger, status: 'pending');
+    final FriendRequest requestReceiver = FriendRequest(requestUser: userStranger, requestStatus: 'requested', requestUserRole: 'receiver');
+    final FriendRequest requestSender = FriendRequest(requestUser: currentUser, requestStatus: 'requested', requestUserRole: 'sender');
     await _firebaseFirestore
         .collection('users')
         .doc(currentUser.uid)
         .collection('requests')
         .doc('${currentUser.uid}_${userStranger.uid}')
-        .set(request.toFirestore());
+        .set(requestReceiver.toFirestore());
+    await _firebaseFirestore
+        .collection('users')
+        .doc(userStranger.uid)
+        .collection('requests')
+        .doc('${userStranger.uid}_${currentUser.uid}')
+        .set(requestSender.toFirestore());
   }
 
   Future<void> removeRequestFriend(
@@ -81,14 +87,20 @@ class UserProvider {
         .collection('requests')
         .doc('${currentUser.uid}_${userStranger.uid}')
         .delete();
+    await _firebaseFirestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .collection('requests')
+        .doc('${userStranger.uid}_${currentUser.uid}')
+        .delete();
   }
 
   Future<void> acceptFriend(AppUser currentUser, AppUser userStranger) async {
     await _firebaseFirestore.collection('users').doc(userStranger.uid).update({
-      'following': FieldValue.arrayUnion([currentUser.toFirestore()])
+      'friends': FieldValue.arrayUnion([currentUser.toFirestore()])
     });
     await _firebaseFirestore.collection('users').doc(currentUser.uid).update({
-      'followers': FieldValue.arrayUnion([userStranger.toFirestore()])
+      'friends': FieldValue.arrayUnion([userStranger.toFirestore()])
     });
   }
 
@@ -101,13 +113,11 @@ class UserProvider {
         .delete();
   }
 
-  Future<bool> checkRequestFriend(AppUser currentUser, AppUser userStranger) async {
-    return await _firebaseFirestore
+  Stream<DocumentSnapshot<Map<String, dynamic>>> checkRequestFriend(AppUser currentUser, AppUser userStranger)  {
+    return _firebaseFirestore
         .collection('users')
         .doc(currentUser.uid)
         .collection('requests')
-        .doc('${currentUser.uid}_${userStranger.uid}')
-        .get()
-        .then((value) => value.exists);
+        .doc('${currentUser.uid}_${userStranger.uid}').snapshots();
   }
 }

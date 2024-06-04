@@ -52,13 +52,12 @@ class AppUser {
       if (email.isNotEmpty) UserCollectionConstant.email: email,
       if (friends.isNotEmpty)
         UserCollectionConstant.friends:
-            friends.map((e) => e.toFirestore()).toList(),
+        friends.map((e) => e.toFirestore()).toList(),
     };
   }
 
   factory AppUser.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-  ) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot,) {
     final data = snapshot.data();
     return AppUser(
       uid: data?[UserCollectionConstant.id] ?? "Unknown id",
@@ -68,10 +67,21 @@ class AppUser {
       gender: data?[UserCollectionConstant.gender] ?? "",
       email: data?[UserCollectionConstant.email] ?? "",
       friends: (data?[UserCollectionConstant.friends] as List?)
-              ?.map((e) => AppUser.fromFirestore(
-                  e as DocumentSnapshot<Map<String, dynamic>>))
-              .toList() ??
-          [],
+          ?.map((e) => AppUser.fromMap(e))
+          .toList() ?? [],
+    );
+  }
+  factory AppUser.fromMap(Map<String, dynamic> data) {
+    return AppUser(
+      uid: data[UserCollectionConstant.id] as String? ?? "Unknown id",
+      displayImage: data[UserCollectionConstant.displayImage] as String? ?? "",
+      fullName: data[UserCollectionConstant.fullName] as String? ?? "",
+      dateOfBirth: data[UserCollectionConstant.dateOfBirth] as String? ?? "",
+      gender: data[UserCollectionConstant.gender] as String? ?? "",
+      email: data[UserCollectionConstant.email] as String? ?? "",
+      friends: (data[UserCollectionConstant.friends] as List?)
+          ?.map((e) => AppUser.fromMap(e as Map<String, dynamic>))
+          .toList() ?? [],
     );
   }
 }

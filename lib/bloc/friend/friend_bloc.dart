@@ -17,6 +17,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         print("userList: ${userList[1].fullName}");
         emit(FriendFetched(userList));
       } catch (e) {
+        print(e.toString());
         emit(FriendError(e.toString()));
       }
     });

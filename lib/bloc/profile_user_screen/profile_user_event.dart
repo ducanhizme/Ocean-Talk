@@ -16,3 +16,13 @@ class RemoveRequestFriendEvent extends ProfileUserEvent {
   final AppUser userStranger;
   RemoveRequestFriendEvent(this.userStranger);
 }
+
+class AcceptRequestFriendEvent extends ProfileUserEvent {
+  final AppUser userStranger;
+  AcceptRequestFriendEvent(this.userStranger);
+}
+
+class RejectRequestFriendEvent extends ProfileUserEvent {
+  final AppUser userStranger;
+  RejectRequestFriendEvent(this.userStranger);
+}
