@@ -61,10 +61,10 @@ class UserProvider {
     });
   }
 
-  Future<void> addRequestFriend(
+  Future<void> sendRequestFriend(
       AppUser currentUser, AppUser userStranger) async {
-    final FriendRequest requestReceiver = FriendRequest(requestUser: userStranger, requestStatus: 'requested', requestUserRole: 'receiver');
-    final FriendRequest requestSender = FriendRequest(requestUser: currentUser, requestStatus: 'requested', requestUserRole: 'sender');
+    final FriendRequest requestReceiver = FriendRequest(requestUser: userStranger, requestUserRole: 'receiver');
+    final FriendRequest requestSender = FriendRequest(requestUser: currentUser, requestUserRole: 'sender');
     await _firebaseFirestore
         .collection('users')
         .doc(currentUser.uid)
@@ -79,7 +79,7 @@ class UserProvider {
         .set(requestSender.toFirestore());
   }
 
-  Future<void> removeRequestFriend(
+  Future<void> cancelRequestFriend(
       AppUser currentUser, AppUser userStranger) async {
     await _firebaseFirestore
         .collection('users')
@@ -104,14 +104,6 @@ class UserProvider {
     });
   }
 
-  Future<void> rejectFriend(AppUser currentUser, AppUser userStranger) async {
-    await _firebaseFirestore
-        .collection('users')
-        .doc(currentUser.uid)
-        .collection('requests')
-        .doc('${currentUser.uid}_${userStranger.uid}')
-        .delete();
-  }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> checkRequestFriend(AppUser currentUser, AppUser userStranger)  {
     return _firebaseFirestore

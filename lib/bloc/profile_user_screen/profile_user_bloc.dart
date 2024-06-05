@@ -12,91 +12,89 @@ class ProfileUserBloc extends Bloc<ProfileUserEvent, ProfileUserState> {
   final UserRepository userRepository;
 
   ProfileUserBloc(this.userRepository) : super(const ProfileUserState()) {
-    on<AddRequestFriendEvent>((event, emit) async {
-      try {
-        emit(state.copyWith(requestStatus: RequestStatus.loading));
-        final currentUser = await userRepository.getCurrentUser();
-        await userRepository.addRequestFriend(currentUser, event.userStranger);
-        emit(state.copyWith(
-            status: ProfileUserStatus.success,
-            requestStatus: RequestStatus.pending));
-      } catch (e) {
-        emit(state.copyWith(status: ProfileUserStatus.failure));
-      }
-    });
+    on<AddRequestFriendEvent>(handleRequestFriend);
+    on<RemoveRequestFriendEvent>(handleCancelRequestFriend);
+    on<AcceptRequestFriendEvent>(handleAcceptRequestFriend);
+    on<FetchProfileUser>(handleFetchProfileUser);
+  }
 
-    on<RemoveRequestFriendEvent>((event, emit) async {
-      try {
-        emit(state.copyWith(requestStatus: RequestStatus.loading));
-        final currentUser = await userRepository.getCurrentUser();
-        await userRepository.removeRequestFriend(
-            currentUser, event.userStranger);
-        emit(state.copyWith(
-            status: ProfileUserStatus.success,
-            requestStatus: RequestStatus.none));
-      } catch (e) {
-        emit(state.copyWith(status: ProfileUserStatus.failure));
-      }
-    });
-
-    on<AcceptRequestFriendEvent>((event, emit) async {
-      try {
-        emit(state.copyWith(requestStatus: RequestStatus.loading));
-        final currentUser = await userRepository.getCurrentUser();
-        await userRepository.removeRequestFriend(
-            currentUser, event.userStranger);
-        await userRepository.acceptRequestFriend(currentUser, event.userStranger);
-        emit(state.copyWith(
+  FutureOr<void> handleFetchProfileUser(event, emit) async {
+    try {
+      emit(state.copyWith(status: ProfileUserStatus.loading));
+      final currentUser = await userRepository.getCurrentUser();
+      for (var element in currentUser.friends) {
+        if(element.uid == event.user.uid){
+          emit(state.copyWith(
             status: ProfileUserStatus.success,
             userType: UserType.friend,
             requestStatus: RequestStatus.done));
-      } catch (e) {
-        emit(state.copyWith(status: ProfileUserStatus.failure));
-      }
-    });
-
-
-    on<FetchProfileUser>((event, emit) async {
-      try {
-        emit(state.copyWith(status: ProfileUserStatus.loading));
-        final currentUser = await userRepository.getCurrentUser();
-        for (var element in currentUser.friends) {
-          if(element.uid == event.user.uid){
-            emit(state.copyWith(
-              status: ProfileUserStatus.success,
-              userType: UserType.friend,
-              requestStatus: RequestStatus.done));
-            continue;
-          }
-          else {
-            emit(state.copyWith(
-                status: ProfileUserStatus.success,
-                userType: UserType.stranger,
-                requestStatus: RequestStatus.none));
-          }
+          continue;
         }
-        final completer = Completer<void>();
-        final subscription = userRepository
-            .checkRequestFriend(currentUser, event.user)
-            .listen((snapshot) {
-          if (snapshot.data()?['requestUserRole'] == 'receiver' &&
-              snapshot.data()?['requestStatus'] == 'requested') {
-            emit(state.copyWith(
-                status: ProfileUserStatus.success,
-                requestStatus: RequestStatus.pending));
-          }
-          if (snapshot.data()?['requestUserRole'] == 'sender' &&
-              snapshot.data()?['requestStatus'] == 'requested') {
-            emit(state.copyWith(
-                status: ProfileUserStatus.success,
-                requestStatus: RequestStatus.receive));
-          }
-        });
-        subscription.onDone(() => completer.complete());
-        await completer.future;
-      } catch (e) {
-        emit(state.copyWith(status: ProfileUserStatus.failure));
+        else {
+          emit(state.copyWith(
+              status: ProfileUserStatus.success,
+              userType: UserType.stranger,
+              requestStatus: RequestStatus.none));
+        }
       }
-    });
+      final snapshot =await userRepository
+          .checkRequestFriend(currentUser, event.user)
+          .first;
+      if (snapshot.data()?['requestUserRole'] == 'receiver') {
+        emit(state.copyWith(
+            status: ProfileUserStatus.success,
+            requestStatus: RequestStatus.pending));
+      }
+      if (snapshot.data()?['requestUserRole'] == 'sender') {
+        emit(state.copyWith(
+            status: ProfileUserStatus.success,
+            requestStatus: RequestStatus.receive));
+      }
+    } catch (e) {
+      emit(state.copyWith(status: ProfileUserStatus.failure));
+    }
+  }
+
+  FutureOr<void> handleAcceptRequestFriend(event, emit) async {
+    try {
+      emit(state.copyWith(requestStatus: RequestStatus.loading));
+      final currentUser = await userRepository.getCurrentUser();
+      await userRepository.removeRequestFriend(
+          currentUser, event.userStranger);
+      await userRepository.acceptRequestFriend(currentUser, event.userStranger);
+      emit(state.copyWith(
+          status: ProfileUserStatus.success,
+          userType: UserType.friend,
+          requestStatus: RequestStatus.done));
+    } catch (e) {
+      emit(state.copyWith(status: ProfileUserStatus.failure));
+    }
+  }
+
+  FutureOr<void> handleCancelRequestFriend(event, emit) async {
+    try {
+      emit(state.copyWith(requestStatus: RequestStatus.loading));
+      final currentUser = await userRepository.getCurrentUser();
+      await userRepository.removeRequestFriend(
+          currentUser, event.userStranger);
+      emit(state.copyWith(
+          status: ProfileUserStatus.success,
+          requestStatus: RequestStatus.none));
+    } catch (e) {
+      emit(state.copyWith(status: ProfileUserStatus.failure));
+    }
+  }
+
+  FutureOr<void> handleRequestFriend(event, emit) async {
+    try {
+      emit(state.copyWith(requestStatus: RequestStatus.loading));
+      final currentUser = await userRepository.getCurrentUser();
+      await userRepository.addRequestFriend(currentUser, event.userStranger);
+      emit(state.copyWith(
+          status: ProfileUserStatus.success,
+          requestStatus: RequestStatus.pending));
+    } catch (e) {
+      emit(state.copyWith(status: ProfileUserStatus.failure));
+    }
   }
 }
