@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ocean_talk/bloc/profile_user_screen/profile_user_bloc.dart';
 import 'package:ocean_talk/presentation/constants/app_color.dart';
-import 'package:ocean_talk/presentation/widget/friend_card.dart';
+import 'package:ocean_talk/presentation/widget/friend_card_vertical.dart';
 import '../../common/common_widget.dart';
 import '../../data/models/app_user.dart';
 
@@ -198,7 +198,7 @@ class _ProfileUserScreenState extends State<ProfileUserScreen> {
                               ),
                               shrinkWrap: true,
                               itemCount: widget.user.friends.length,
-                              itemBuilder: (context, index) => FriendCard(
+                              itemBuilder: (context, index) => FriendCardVertical(
                                 friend: widget.user.friends[index],
                               ),
                             )),

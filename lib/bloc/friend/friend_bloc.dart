@@ -11,13 +11,10 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
   FriendBloc({required this.userRepository}) : super(FriendState()) {
     on<FetchFriend>((event, emit) async {
       emit(FriendLoading());
-      print("loadingg");
       try {
-        final userList = await userRepository.getUsers();
-        print("userList: ${userList[1].fullName}");
-        emit(FriendFetched(userList));
+        final userAuthenticated = await userRepository.getCurrentUser();
+        emit(FriendFetched(userAuthenticated.friends));
       } catch (e) {
-        print(e.toString());
         emit(FriendError(e.toString()));
       }
     });

@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import '../../data/models/app_user.dart';
 import '../screens/profile_user_screen.dart';
 
-class FriendCard extends StatelessWidget {
+class FriendCardVertical extends StatelessWidget {
   final AppUser friend;
-  const FriendCard({
+  const FriendCardVertical({
     super.key, required this.friend,
   });
 

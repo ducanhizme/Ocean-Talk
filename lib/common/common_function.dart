@@ -5,3 +5,9 @@ String formatDate(DateTime dateTime) {
   String formatted = formatter.format(dateTime);
   return formatted;
 }
+
+String formatTime(DateTime dateTime) {
+  var formatter = DateFormat('HH:mm');
+  String formatted = formatter.format(dateTime);
+  return formatted;
+}

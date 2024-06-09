@@ -18,24 +18,33 @@ class ProfileUserBloc extends Bloc<ProfileUserEvent, ProfileUserState> {
     on<FetchProfileUser>(handleFetchProfileUser);
   }
 
-  FutureOr<void> handleFetchProfileUser(event, emit) async {
+  Future<void> handleFetchProfileUser(event, emit) async {
     try {
       emit(state.copyWith(status: ProfileUserStatus.loading));
       final currentUser = await userRepository.getCurrentUser();
-      for (var element in currentUser.friends) {
-        if(element.uid == event.user.uid){
-          emit(state.copyWith(
+      print(currentUser.uid);
+      if(currentUser.friends.isNotEmpty){
+        for (var element in currentUser.friends) {
+          print('check');
+          if(element.uid == event.user.uid){
+            emit(state.copyWith(
+                status: ProfileUserStatus.success,
+                userType: UserType.friend,
+                requestStatus: RequestStatus.done));
+            return;
+          }
+          else {
+            emit(state.copyWith(
+                status: ProfileUserStatus.success,
+                userType: UserType.stranger,
+                requestStatus: RequestStatus.none));
+          }
+        }
+      }else{
+        emit(state.copyWith(
             status: ProfileUserStatus.success,
-            userType: UserType.friend,
-            requestStatus: RequestStatus.done));
-          continue;
-        }
-        else {
-          emit(state.copyWith(
-              status: ProfileUserStatus.success,
-              userType: UserType.stranger,
-              requestStatus: RequestStatus.none));
-        }
+            userType: UserType.stranger,
+            requestStatus: RequestStatus.none));
       }
       final snapshot =await userRepository
           .checkRequestFriend(currentUser, event.user)
@@ -55,7 +64,7 @@ class ProfileUserBloc extends Bloc<ProfileUserEvent, ProfileUserState> {
     }
   }
 
-  FutureOr<void> handleAcceptRequestFriend(event, emit) async {
+  Future<void> handleAcceptRequestFriend(event, emit) async {
     try {
       emit(state.copyWith(requestStatus: RequestStatus.loading));
       final currentUser = await userRepository.getCurrentUser();
@@ -71,7 +80,7 @@ class ProfileUserBloc extends Bloc<ProfileUserEvent, ProfileUserState> {
     }
   }
 
-  FutureOr<void> handleCancelRequestFriend(event, emit) async {
+  Future<void> handleCancelRequestFriend(event, emit) async {
     try {
       emit(state.copyWith(requestStatus: RequestStatus.loading));
       final currentUser = await userRepository.getCurrentUser();
@@ -85,7 +94,7 @@ class ProfileUserBloc extends Bloc<ProfileUserEvent, ProfileUserState> {
     }
   }
 
-  FutureOr<void> handleRequestFriend(event, emit) async {
+  Future<void> handleRequestFriend(event, emit) async {
     try {
       emit(state.copyWith(requestStatus: RequestStatus.loading));
       final currentUser = await userRepository.getCurrentUser();

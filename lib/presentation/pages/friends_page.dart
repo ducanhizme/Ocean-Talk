@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ocean_talk/bloc/friend/friend_bloc.dart';
+import 'package:ocean_talk/presentation/widget/friend_card_horizontal.dart';
 
 import '../widget/user_card.dart';
 
@@ -33,7 +34,7 @@ class _FriendsPageState extends State<FriendsPage> {
               padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
               child: ListView.builder(
                   itemCount: state.listFriend.length,
-                  itemBuilder: (context, index) => UserCard(user: state.listFriend[index])),
+                  itemBuilder: (context, index) => FriendCardHorizontal(user: state.listFriend[index])),
             );
           }else if(state is FriendError ){
             return  Center(child: Text(state.message));
