@@ -56,6 +56,7 @@ class FriendCardHorizontal extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     flex: 2,
@@ -97,32 +98,34 @@ class FriendCardHorizontal extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Expanded(child: Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BlocProvider(
-                                      create: (context) => ChatBloc(
-                                          RepositoryProvider.of<UserRepository>(context),
-                                        chatRepository: RepositoryProvider.of<ChatRepository>(context),
-                                          ),
-                                      child: ChatScreen(user: user),
-                                    ),
-                                  ),
-                                );
-                              },
-                                child: Icon(Ionicons.chatbox_ellipses_outline, size: 20.w)
-                            ),
-                            Gap(10.w),
-                            Icon(Ionicons.ellipsis_horizontal_circle_outline, size: 20.w),
-                          ],
-                        ))
+
                       ],
                     ),
                   ),
+                  Expanded(child:Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) => ChatBloc(
+                                    RepositoryProvider.of<UserRepository>(context),
+                                    chatRepository: RepositoryProvider.of<ChatRepository>(context),
+                                  ),
+                                  child: ChatScreen(user: user),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Icon(Ionicons.chatbox_ellipses_outline, size: 20.w)
+                      ),
+                      Gap(10.w),
+                      Icon(Ionicons.ellipsis_horizontal_circle_outline, size: 20.w),
+                    ],
+                  ))
                 ],
               ),
             ),

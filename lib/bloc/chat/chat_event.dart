@@ -14,8 +14,9 @@ class UpdateMessage extends ChatEvent {
 }
 
 class SendMessage extends ChatEvent {
+  final String messageType;
   final List<String> receiversUid;
-  SendMessage(this.receiversUid);
+  SendMessage(this.receiversUid, this.messageType);
 }
 
 class TextMessageChanged extends ChatEvent {

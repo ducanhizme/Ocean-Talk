@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_talk/data/providers/chat_provider.dart';
@@ -33,5 +34,9 @@ class ChatRepository {
   Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(
       List<String> receiversId, String senderId) {
     return chatProvider.getMessages(getConservationId(receiversId, senderId));
+  }
+
+  Future<String> uploadImage(File image) async {
+    return chatProvider.uploadImage(image);
   }
 }

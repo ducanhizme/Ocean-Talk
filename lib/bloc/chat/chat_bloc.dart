@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,10 +27,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       emit(state.copyWith(messageStatus: MessageStatus.sending));
       String senderId = await _getUserCurrentID();
+      String content ="";
+      if(event.messageType =="image"){
+        print("state: ${state.messageSendContent}");
+        content = await chatRepository.uploadImage(File(state.messageSendContent)).onError((error, stackTrace) =>  "Error");
+        print('content: $content');
+      }else{
+        content = state.messageSendContent;
+      }
       Message message = Message(
         senderId: senderId,
-        content: state.messageSendContent,
+        content: content,
         timestamp: formatTime(DateTime.now()),
+        type: event.messageType,
       );
       await chatRepository.sendMessage(event.receiversUid, senderId, message);
       emit(state.copyWith(messageStatus: MessageStatus.sent));
