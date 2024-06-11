@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -70,21 +71,25 @@ class _ChatScreenState extends State<ChatScreen> {
                     ? _buildTextMessageReceive(message, context)
                     : _buildTextMessageSend(message, context);
               } else if (message.type == "image") {
-                return ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxWidth: ScreenUtil().screenWidth * 0.4,
-                        maxHeight: ScreenUtil().screenHeight * 0.4),
-                    child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        child: SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(child: Image.network(message.content)),
-                            ],
-                          ),
-                        )));
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                            maxWidth: ScreenUtil().screenWidth * 0.67,
+                            maxHeight:ScreenUtil().screenWidth * 0.67,
+                        ),
+                        child: Image.network(
+                          message.content,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               }
               return message.senderId == widget.user.uid
                   ? _buildTextMessageReceive(message, context)
